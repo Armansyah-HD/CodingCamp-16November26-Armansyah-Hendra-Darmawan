@@ -1,0 +1,579 @@
+/* ==========================================================================
+   To-Do Life Dashboard — style.css
+   Sections:
+     1. Reset / Base
+     2. CSS Variables (light theme)
+     3. Dark-theme overrides
+     4. Layout (header, 2-col grid, links)
+     5. Typography
+     6. Buttons
+     7. Inputs
+     8. Greeting / Header Card
+     9. Focus Timer
+    10. To-Do List
+    11. Quick Links
+    12. Utility
+    13. Responsive (≤ 640 px)
+    14. Accessibility (focus-visible)
+   ========================================================================== */
+
+/* ------------------------------------------------------------------
+   1. Reset / Base
+   ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 1.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ------------------------------------------------------------------
+   2. CSS Variables — Light theme (default)
+   ------------------------------------------------------------------ */
+:root {
+  --bg-page:        #f0f2f5;
+  --bg-card:        #ffffff;
+  --text-primary:   #1a1a2e;
+  --text-secondary: #6b7280;
+  --text-done:      #9ca3af;
+  --accent:         #4f46e5;
+  --accent-hover:   #4338ca;
+  --accent-light:   #e0e7ff;
+  --danger:         #ef4444;
+  --danger-hover:   #dc2626;
+  --success:        #10b981;
+  --border:         #e5e7eb;
+  --shadow:         0 2px 12px rgba(0, 0, 0, 0.08);
+  --shadow-hover:   0 4px 20px rgba(0, 0, 0, 0.14);
+  --radius:         0.75rem;
+  --radius-sm:      0.4rem;
+  --transition:     0.2s ease;
+}
+
+/* ------------------------------------------------------------------
+   3. Dark-theme overrides
+   ------------------------------------------------------------------ */
+[data-theme="dark"] {
+  --bg-page:        #0f0f1a;
+  --bg-card:        #1e1e2e;
+  --text-primary:   #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-done:      #4b5563;
+  --accent:         #818cf8;
+  --accent-hover:   #6366f1;
+  --accent-light:   #312e81;
+  --danger:         #f87171;
+  --danger-hover:   #ef4444;
+  --success:        #34d399;
+  --border:         #2d2d44;
+  --shadow:         0 2px 12px rgba(0, 0, 0, 0.4);
+  --shadow-hover:   0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ------------------------------------------------------------------
+   4. Layout
+   ------------------------------------------------------------------ */
+.header-card {
+  margin-bottom: 1.25rem;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.links-card {
+  /* full-width, below the grid */
+}
+
+/* ------------------------------------------------------------------
+   5. Typography
+   ------------------------------------------------------------------ */
+.card-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* ------------------------------------------------------------------
+   6. Buttons
+   ------------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Primary */
+.btn-primary {
+  background-color: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
+}
+
+/* Secondary */
+.btn-secondary {
+  background-color: var(--border);
+  color: var(--text-primary);
+}
+.btn-secondary:hover {
+  background-color: var(--accent-light);
+  color: var(--accent);
+}
+
+/* Danger */
+.btn-danger {
+  background-color: var(--danger);
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: var(--danger-hover);
+}
+
+/* Icon button (small, square-ish) */
+.icon-btn {
+  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  line-height: 1;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+}
+.icon-btn:hover {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.icon-btn.danger:hover {
+  background-color: #fee2e2;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+[data-theme="dark"] .icon-btn.danger:hover {
+  background-color: #450a0a;
+}
+
+/* ------------------------------------------------------------------
+   7. Inputs
+   ------------------------------------------------------------------ */
+input[type="text"] {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: inherit;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* ------------------------------------------------------------------
+   Card base
+   ------------------------------------------------------------------ */
+.card {
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ------------------------------------------------------------------
+   8. Greeting / Header Card
+   ------------------------------------------------------------------ */
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.clock-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+#clock {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+#date {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.name-block {
+  display: flex;
+  align-items: center;
+}
+
+.name-block input[type="text"] {
+  width: 160px;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.65rem;
+}
+
+#theme-toggle {
+  font-size: 1.1rem;
+  padding: 0.4rem 0.6rem;
+}
+
+.greeting {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-top: 0.25rem;
+}
+
+/* ------------------------------------------------------------------
+   9. Focus Timer
+   ------------------------------------------------------------------ */
+.timer-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.timer-display {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.timer-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.timer-message {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--success);
+  min-height: 1.4em;
+}
+
+/* ------------------------------------------------------------------
+   10. To-Do List
+   ------------------------------------------------------------------ */
+.todo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.todo-add-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.todo-add-row input[type="text"] {
+  flex: 1;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 340px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+/* Scrollbar styling */
+.todo-list::-webkit-scrollbar {
+  width: 4px;
+}
+.todo-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.todo-list::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 2px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background-color: var(--bg-page);
+  transition: background-color var(--transition);
+}
+
+.todo-item:hover {
+  background-color: var(--accent-light);
+}
+
+[data-theme="dark"] .todo-item {
+  background-color: rgba(255,255,255,0.03);
+}
+[data-theme="dark"] .todo-item:hover {
+  background-color: rgba(129, 140, 248, 0.1);
+}
+
+.todo-checkbox {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 0.9rem;
+  word-break: break-word;
+  color: var(--text-primary);
+}
+
+.todo-text.done {
+  text-decoration: line-through;
+  color: var(--text-done);
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+/* Inline edit row */
+.todo-edit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.todo-edit-input {
+  flex: 1;
+  font-size: 0.875rem;
+  padding: 0.3rem 0.5rem;
+}
+
+/* ------------------------------------------------------------------
+   11. Quick Links
+   ------------------------------------------------------------------ */
+.links-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.link-btn {
+  padding: 0.4rem 0.9rem;
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition), box-shadow var(--transition);
+}
+.link-btn:hover {
+  background-color: var(--accent-hover);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.link-delete-btn {
+  padding: 0.3rem 0.45rem;
+  font-size: 0.8rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition);
+  line-height: 1;
+}
+.link-delete-btn:hover {
+  background-color: #fee2e2;
+  color: var(--danger);
+  border-color: var(--danger);
+}
+[data-theme="dark"] .link-delete-btn:hover {
+  background-color: #450a0a;
+}
+
+.link-add-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.link-add-row input[type="text"] {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* ------------------------------------------------------------------
+   12. Utility
+   ------------------------------------------------------------------ */
+.error-message {
+  font-size: 0.8rem;
+  color: var(--danger);
+  font-weight: 500;
+  min-height: 1.2em;
+}
+
+/* Screen-reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ------------------------------------------------------------------
+   13. Responsive — single column on mobile (≤ 640 px)
+   ------------------------------------------------------------------ */
+@media (max-width: 640px) {
+  body {
+    padding: 1rem 0.75rem;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #clock {
+    font-size: 2rem;
+  }
+
+  .timer-display {
+    font-size: 3rem;
+  }
+
+  .header-top {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .header-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .name-block input[type="text"] {
+    width: 100%;
+  }
+
+  .link-add-row {
+    flex-direction: column;
+  }
+
+  .link-add-row .btn {
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------
+   14. Accessibility — focus-visible ring
+   ------------------------------------------------------------------ */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove default outline since we apply focus-visible */
+:focus:not(:focus-visible) {
+  outline: none;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <!-- ===== HEADER CARD — Greeting, Clock, Name, Theme ===== -->
+    <header class="card header-card">
+      <div class="header-top">
+        <div class="clock-block">
+          <div id="clock" aria-live="polite" aria-label="Current time">00:00:00</div>
+          <div id="date" aria-label="Current date">Loading…</div>
+        </div>
+
+        <div class="header-controls">
+          <div class="name-block">
+            <label for="name-input" class="sr-only">Your name</label>
+            <input
+              type="text"
+              id="name-input"
+              placeholder="Your name…"
+              maxlength="40"
+              aria-label="Enter your name for the greeting"
+            />
+          </div>
+          <button
+            id="theme-toggle"
+            class="btn btn-secondary icon-btn"
+            aria-label="Toggle dark mode"
+            aria-pressed="false"
+          >🌙</button>
+        </div>
+      </div>
+
+      <div id="greeting" class="greeting" aria-live="polite">Good Morning</div>
+    </header>
+
+    <!-- ===== MAIN GRID — Timer + To-Do ===== -->
+    <main class="main-grid">
+
+      <!-- Focus Timer Card -->
+      <section class="card timer-card" aria-labelledby="timer-heading">
+        <h2 id="timer-heading" class="card-title">Focus Timer</h2>
+
+        <div id="timer-display" class="timer-display" aria-live="polite" aria-label="Timer countdown">25:00</div>
+
+        <div class="timer-buttons" role="group" aria-label="Timer controls">
+          <button id="start-btn"  class="btn btn-primary"   aria-label="Start timer">Start</button>
+          <button id="stop-btn"   class="btn btn-secondary" aria-label="Stop timer">Stop</button>
+          <button id="reset-btn"  class="btn btn-secondary" aria-label="Reset timer">Reset</button>
+        </div>
+
+        <p id="timer-message" class="timer-message" role="alert" aria-live="polite"></p>
+      </section>
+
+      <!-- To-Do List Card -->
+      <section class="card todo-card" aria-labelledby="todo-heading">
+        <h2 id="todo-heading" class="card-title">To-Do List</h2>
+
+        <div class="todo-add-row">
+          <label for="todo-input" class="sr-only">New task</label>
+          <input
+            type="text"
+            id="todo-input"
+            placeholder="Add a new task…"
+            maxlength="200"
+            aria-label="New task text"
+          />
+          <button id="add-task-btn" class="btn btn-primary" aria-label="Add task">Add</button>
+        </div>
+
+        <p id="todo-error" class="error-message" role="alert" aria-live="polite"></p>
+
+        <ul id="todo-list" class="todo-list" aria-label="Task list"></ul>
+      </section>
+
+    </main>
+
+    <!-- ===== QUICK LINKS CARD ===== -->
+    <section class="card links-card" aria-labelledby="links-heading">
+      <h2 id="links-heading" class="card-title">Quick Links</h2>
+
+      <div id="links-container" class="links-container" aria-label="Quick links"></div>
+
+      <div class="link-add-row">
+        <label for="link-name-input" class="sr-only">Link name</label>
+        <input
+          type="text"
+          id="link-name-input"
+          placeholder="Name…"
+          maxlength="40"
+          aria-label="Link name"
+        />
+        <label for="link-url-input" class="sr-only">Link URL</label>
+        <input
+          type="text"
+          id="link-url-input"
+          placeholder="URL…"
+          maxlength="500"
+          aria-label="Link URL"
+        />
+        <button id="add-link-btn" class="btn btn-primary" aria-label="Add link">Add Link</button>
+      </div>
+
+      <p id="link-error" class="error-message" role="alert" aria-live="polite"></p>
+    </section>
+
+    <script src="js/script.js" defer></script>
+  </body>
+</html>
